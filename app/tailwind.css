@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply text-gray-900;
+}
+
+a:not(nav a) {
+  @apply underline decoration-cyan-700 hover:decoration-cyan-900;
+}
