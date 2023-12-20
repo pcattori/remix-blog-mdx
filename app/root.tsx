@@ -2,6 +2,7 @@ import {
   Links,
   LiveReload,
   Meta,
+  MetaFunction,
   NavLink,
   Outlet,
   Scripts,
@@ -46,6 +47,8 @@ const Layout = (props: { children: ReactNode }) => (
     </footer>
   </div>
 );
+
+export const meta: MetaFunction = () => [{ title: "Remix 🤝 MDX" }];
 
 export default function App() {
   return (

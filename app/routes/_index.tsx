@@ -1,7 +1,4 @@
-import type { MetaFunction as Meta } from "@remix-run/node";
 import { Post, getPosts } from "~/posts";
-
-export const meta: Meta = () => [{ title: "Remix 🤝 MDX" }];
 
 const posts = getPosts();
 

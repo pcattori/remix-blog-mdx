@@ -1,13 +1,13 @@
-# templates/unstable-vite
+# Remix 🤝 MDX
 
-⚠️ Remix support for Vite is unstable and not recommended for production.
+This template uses Vite to process MDX files in your Remix app.
 
-📖 See the [Remix Vite docs][remix-vite-docs] for details on supported features.
+It uses [`import.meta.glob`](https://vitejs.dev/guide/features#glob-import)
 
 ## Setup
 
 ```shellscript
-npx create-remix@latest --template remix-run/remix/templates/unstable-vite
+npx create-remix@latest --template pcattori/remix-blog-mdx
 ```
 
 ## Run
@@ -24,5 +24,3 @@ Or build your app for production and run it:
 npm run build
 npm run start
 ```
-
-[remix-vite-docs]: https://remix.run/docs/en/main/future/vite
