@@ -1,0 +1,73 @@
+---
+title: How this site is built
+description: Explanation of how Vite features and plugins work together to power Remix + MDX
+published: 2023-12-25
+featured: true
+---
+
+# {frontmatter.title}
+
+This site uses [Vite][vite] and [Remark][remark] plugins that let you write MDX routes in your Remix app.
+These MDX routes are transformed to JS at build-time.
+
+Server-side utilities query the frontmatter of each MDX file so that pages can display lists of posts.
+
+The best part is that Remix has your back as your app gets more complex.
+Need to grab data your database?
+It's just Remix, so use a `loader`.
+Remix let's you use the _same_ mental model and the _same_ tools all the way from a simple blog to a complex app.
+No rearchitecting is required.
+
+## Plugins
+
+MDX support in Vite is provided by [`@mdx-js/rollup`][mdx-js-rollup].
+[Frontmatter][frontmatter] support in Remark is provided by [`remark-frontmatter`][remark-frontmatter] and [`remark-mdx-frontmatter`][remark-mdx-frontmatter].
+
+Check out [`vite.config.ts`][vite-config] to see how these are wired together.
+
+## MDX routes
+
+To take advantage of [nested routes][nested-routes], posts are under `/blog/`
+so that the `blog.tsx` parent route can handle layout and styling uniformly for all posts.
+
+The about page is a one-off route so it handles its own styling.
+There are probably other ways to handle styling without needing a surrounding `<div />`, but that seemed the simplest for now.
+It is still a nested route relative to the root route, so it gets the site layout for free.
+
+## Querying MDX routes
+
+The home page (`/`) and blog archive (`/blog`) each want to display a subset of the posts.
+Specifically, they want to display metadata about each included post.
+
+The naive solution would be to read the files directly, say with `fs.readFileSync` and then parse the frontmatter.
+There are a couple issues with this approach.
+For one, the MDX routes are _routes_ not content and they will be built to a different location.
+Also, if you were using any other plugins for MDX or frontmatter, you'd have to duplicate that setup to parse the posts.
+
+Luckily, Vite's [glob imports][import-meta-glob] makes this easy.
+But relying on Vite, it handles transforming the MDX routes with the same transformation pipeline that is setup in `vite.config.ts`.
+
+Importantly, all frontmatter queries run behind a `loader` so that only the data needed by each page is sent over the network.
+Otherwise, chunks for _all_ posts would get sent to the browser even if a route like the home page only wanted to display metadata for a subset of the posts.
+
+## Alternatives
+
+This approach handles MDX at build-time.
+For some use-cases, you might prefer to handle MDX at runtime.
+It's a bit more work since you have to setup a [Unified][unified] pipeline yourself,
+but it let's you model posts as _content_ rather than routes.
+That is, you would have a `blog.$slug.tsx` route that would dynamically load the MDX content for that post.
+
+There are different trade-offs here, so its up to you to decide which one is better.
+But the approach this site takes is often a simpler starting point.
+
+[vite]: https://vitejs.dev/
+[remark]: https://github.com/remarkjs/remark
+[vite-config]: https://github.com/pcattori/remix-blog-mdx/blob/main/vite.config.ts
+[mdx-js-rollup]: https://mdxjs.com/packages/rollup/
+[frontmatter]: https://mdxjs.com/guides/frontmatter/
+[remark-frontmatter]: https://github.com/remarkjs/remark-frontmatter
+[remark-mdx-frontmatter]: https://github.com/remcohaszing/remark-mdx-frontmatter
+[nested-routes]: https://remix.run/docs/en/main/discussion/routes
+[import-meta-glob]: https://vitejs.dev/guide/features.html#glob-import
+[unified]: https://unifiedjs.com/
