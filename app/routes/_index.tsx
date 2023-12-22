@@ -1,8 +1,14 @@
-import { Post, getPosts } from "~/posts";
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
-const posts = getPosts();
+import { getFeaturedPosts } from "~/.server/posts";
+import { Post } from "~/components/post";
+
+export const loader = () => json(getFeaturedPosts());
 
 export default function Index() {
+  const featuredPosts = useLoaderData<typeof loader>();
+
   return (
     <div className="flex-1 p-10 grid sm:grid-cols-2 gap-16 sm:place-items-center">
       <div className="space-y-8">
@@ -16,13 +22,11 @@ export default function Index() {
         <section>
           <h3 className="text-xl tracking-wide">✨ FEATURED ✨</h3>
           <ul className="mt-4 space-y-8">
-            {posts
-              .filter((post) => post.frontmatter.featured)
-              .map((post) => (
-                <li key={post.slug}>
-                  <Post {...post} />
-                </li>
-              ))}
+            {featuredPosts.map((post) => (
+              <li key={post.slug}>
+                <Post {...post} />
+              </li>
+            ))}
           </ul>
         </section>
       </div>

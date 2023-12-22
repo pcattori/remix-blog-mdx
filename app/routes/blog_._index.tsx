@@ -1,8 +1,14 @@
-import { getPosts, Post } from "~/posts";
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
-const posts = getPosts();
+import { getPosts } from "~/.server/posts";
+import { Post } from "~/components/post";
+
+export const loader = () => json(getPosts());
 
 export default function Component() {
+  const posts = useLoaderData<typeof loader>();
+
   return (
     <div className="p-10">
       <ul className="space-y-8">
