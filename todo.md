@@ -1,4 +1,0 @@
-- home page with featured content
-- timeline on posts/
-- markdown demo
-- mdx demo
