@@ -15,7 +15,11 @@ export default function Index() {
         <div>
           <h2 className="text-4xl font-bold">Remix 🤝 MDX</h2>
           <p className="text-gray-600 font-light">
-            Vite plugins make it easy. Check out the code.
+            Powered by Vite plugins. Check out the{" "}
+            <a href="https://github.com/pcattori/remix-blog-mdx">
+              code on Github
+            </a>
+            .
           </p>
         </div>
         <hr />
