@@ -11,6 +11,7 @@ export type PostMeta = {
 };
 
 const slug = (filename: string) =>
+  "/" +
   filename
     .replace("../routes/", "")
     .replace(/\.mdx$/, "")
