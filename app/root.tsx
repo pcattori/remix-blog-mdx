@@ -30,6 +30,11 @@ const Layout = (props: { children: ReactNode }) => (
               blog
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/about" className={navLinkClass}>
+              about
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>
