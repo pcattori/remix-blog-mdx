@@ -2,7 +2,7 @@
 
 This template uses Vite to process MDX files in your Remix app.
 
-It uses [`import.meta.glob`](https://vitejs.dev/guide/features#glob-import)
+👉 [Live Demo](https://remix-blog-mdx.fly.dev)
 
 ## Setup
 
