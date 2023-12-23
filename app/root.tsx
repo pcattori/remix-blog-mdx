@@ -53,7 +53,13 @@ const Layout = (props: { children: ReactNode }) => (
   </div>
 );
 
-export const meta: MetaFunction = () => [{ title: "Remix 🤝 MDX" }];
+export const meta: MetaFunction = () => [
+  { title: "Remix 🤝 MDX" },
+  {
+    name: "description",
+    content: "Template showing off Remix's new MDX capabilities",
+  },
+];
 
 export default function App() {
   return (
