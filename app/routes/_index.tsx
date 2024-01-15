@@ -4,8 +4,8 @@ import { useLoaderData } from "@remix-run/react";
 import { getPosts } from "~/.server/posts";
 import { Post } from "~/components/post";
 
-export const loader = () => {
-  const posts = getPosts();
+export const loader = async () => {
+  const posts = await getPosts();
   return json(posts.filter((post) => post.frontmatter.featured));
 };
 

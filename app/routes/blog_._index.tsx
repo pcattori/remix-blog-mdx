@@ -4,7 +4,7 @@ import { useLoaderData } from "@remix-run/react";
 import { getPosts } from "~/.server/posts";
 import { Post } from "~/components/post";
 
-export const loader = () => json(getPosts());
+export const loader = async () => json(await getPosts());
 
 export default function Component() {
   const posts = useLoaderData<typeof loader>();
