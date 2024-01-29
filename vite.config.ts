@@ -8,11 +8,11 @@ import rehypePrettyCode from "rehype-pretty-code";
 
 export default defineConfig({
   plugins: [
-    remix(),
     tsconfigPaths(),
     mdx({
       remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
       rehypePlugins: [rehypePrettyCode],
     }),
+    remix(),
   ],
 });
